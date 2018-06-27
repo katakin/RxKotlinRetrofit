@@ -1,5 +1,6 @@
 package ru.katakin.rxkotlinretrofit.ui.splash
 
+import android.content.SharedPreferences
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -14,8 +15,8 @@ abstract class SplashActivityModule {
     companion object {
         @JvmStatic
         @Provides
-        internal fun providePresenter(view: SplashInterface.View): SplashInterface.Presenter {
-            return SplashPresenter(view)
+        internal fun providePresenter(view: SplashInterface.View, sp: SharedPreferences): SplashInterface.Presenter {
+            return SplashPresenter(view, sp)
         }
     }
 }

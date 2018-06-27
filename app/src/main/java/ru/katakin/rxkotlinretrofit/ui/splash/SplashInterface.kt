@@ -4,7 +4,9 @@ import ru.katakin.rxkotlinretrofit.ui.base.BasePresenter
 
 interface SplashInterface {
 
-    interface View {}
+    interface View {
+        fun navigateToMain()
+    }
 
     interface Presenter : BasePresenter {}
 }
