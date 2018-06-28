@@ -36,10 +36,14 @@ android {
         dev {
             dimension "environment"
             buildConfigField "String", "SERVER_URL", keystoreProperties['server.url']
+            buildConfigField "String", "CONSUMER_KEY", keystoreProperties['consumer.key']
+            buildConfigField "String", "CONSUMER_SECRET", keystoreProperties['consumer.secret']
         }
         prod {
             dimension "environment"
             buildConfigField "String", "SERVER_URL", keystoreProperties['server.url']
+            buildConfigField "String", "CONSUMER_KEY", keystoreProperties['consumer.key']
+            buildConfigField "String", "CONSUMER_SECRET", keystoreProperties['consumer.secret']
         }
     }
 }
