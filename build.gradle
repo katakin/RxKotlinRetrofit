@@ -2,6 +2,14 @@
 
 buildscript {
     ext.kotlin_version = '1.2.41'
+    ext.supportVersion = '27.1.1'
+    ext.daggerVersion = '2.16'
+    ext.gsonVersion = '2.8.5'
+    ext.rxandroidVersion = '2.0.2'
+    ext.rxjavaVersion = '2.1.16'
+    ext.okhttpVersion = '3.10.0'
+    ext.retrofitVersion = '2.4.0'
+
     repositories {
         google()
         jcenter()
@@ -20,10 +28,6 @@ allprojects {
         google()
         jcenter()
     }
-}
-
-ext {
-    daggerVersion = "2.16"
 }
 
 task clean(type: Delete) {
