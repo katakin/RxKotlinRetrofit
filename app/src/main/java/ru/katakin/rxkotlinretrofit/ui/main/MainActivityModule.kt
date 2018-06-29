@@ -3,7 +3,6 @@ package ru.katakin.rxkotlinretrofit.ui.main
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
-import ru.katakin.rxkotlinretrofit.network.ServiceApi
 
 @Module
 abstract class MainActivityModule {
@@ -15,8 +14,6 @@ abstract class MainActivityModule {
     companion object {
         @JvmStatic
         @Provides
-        internal fun providePresenter(view: MainInterface.View, api: ServiceApi): MainInterface.Presenter {
-            return MainPresenter(view, api)
-        }
+        internal fun providePresenter(view: MainInterface.View): MainInterface.Presenter = MainPresenter(view)
     }
 }

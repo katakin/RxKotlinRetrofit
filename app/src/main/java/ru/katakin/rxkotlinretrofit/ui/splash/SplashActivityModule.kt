@@ -15,8 +15,6 @@ abstract class SplashActivityModule {
     companion object {
         @JvmStatic
         @Provides
-        internal fun providePresenter(view: SplashInterface.View, sp: SharedPreferences): SplashInterface.Presenter {
-            return SplashPresenter(view, sp)
-        }
+        internal fun providePresenter(view: SplashInterface.View, sp: SharedPreferences): SplashInterface.Presenter = SplashPresenter(view, sp)
     }
 }

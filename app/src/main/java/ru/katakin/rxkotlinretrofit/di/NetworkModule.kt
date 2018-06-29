@@ -38,7 +38,10 @@ class NetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create()
+    fun provideGson(): Gson = GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create()
 
     @Provides
     @Singleton

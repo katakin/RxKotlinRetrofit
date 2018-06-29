@@ -19,4 +19,9 @@ abstract class BaseActivity : DaggerAppCompatActivity() {
         Log.d(TAG, "onCreate")
         setContentView(layoutResourceId)
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(TAG, "onDestroy")
+    }
 }

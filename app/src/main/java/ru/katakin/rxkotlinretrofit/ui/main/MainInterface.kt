@@ -4,11 +4,7 @@ import ru.katakin.rxkotlinretrofit.ui.base.BasePresenter
 
 interface MainInterface {
 
-    interface View {
-        fun showToken(accessToken: String?)
-    }
+    interface View {}
 
-    interface Presenter : BasePresenter {
-        fun btnClicked()
-    }
+    interface Presenter : BasePresenter {}
 }

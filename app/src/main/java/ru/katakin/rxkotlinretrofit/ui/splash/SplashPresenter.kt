@@ -1,9 +1,13 @@
 package ru.katakin.rxkotlinretrofit.ui.splash
 
 import android.content.SharedPreferences
-import io.reactivex.Single
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.functions.BiFunction
+import io.reactivex.subjects.BehaviorSubject
+import io.reactivex.subjects.PublishSubject
+import ru.katakin.rxkotlinretrofit.utils.token
 import java.util.concurrent.TimeUnit
 
 class SplashPresenter(
@@ -15,14 +19,26 @@ class SplashPresenter(
         val TAG = SplashPresenter::class.java.simpleName
     }
 
-    val compositeDisposable = CompositeDisposable()
+    private val compositeDisposable = CompositeDisposable()
+    private val timerSubject = BehaviorSubject.timer(getSplashScreenDuration(), TimeUnit.MILLISECONDS)
+    private val start = PublishSubject.create<Unit>()
 
     override fun subscribe() {
         compositeDisposable.add(
-                Single.timer(getSplashScreenDuration(), TimeUnit.MILLISECONDS)
+                Observable
+                        .combineLatest<Long, Unit, Unit>(timerSubject, start, BiFunction { _, _ -> } )
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe { _ -> view.navigateToMain() }
+                        .subscribe {
+                            when(token) {
+                                null -> view.navigateToAuth()
+                                else -> view.navigateToMain()
+                            }
+                        }
         )
+    }
+
+    override fun onStart() {
+        start.onNext(Unit)
     }
 
     override fun unsubscribe() {

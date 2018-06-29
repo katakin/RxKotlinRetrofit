@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="30dp"
+    tools:context=".ui.auth.AuthActivity">
+
+    <TextView
+        android:id="@+id/auth_token"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:hint="Here will be token"
+        android:maxLines="3"
+        android:textColor="@color/gray_light"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/auth_btn_get_token"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/auth_btn_get_token"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get Token"
+        app:layout_constraintBottom_toTopOf="@+id/auth_btn_close"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_token" />
+
+    <Button
+        android:id="@+id/auth_btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/auth_btn_get_token" />
+
+</android.support.constraint.ConstraintLayout>
