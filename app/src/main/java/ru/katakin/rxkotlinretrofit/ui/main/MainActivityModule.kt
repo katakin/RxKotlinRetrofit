@@ -2,18 +2,13 @@ package ru.katakin.rxkotlinretrofit.ui.main
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import ru.katakin.rxkotlinretrofit.di.ActivityScope
+import ru.katakin.rxkotlinretrofit.ui.base.BaseActivity
 
 @Module
 abstract class MainActivityModule {
 
     @Binds
-    abstract fun view(mainActivity: MainActivity): MainInterface.View
-
-    @Module
-    companion object {
-        @JvmStatic
-        @Provides
-        internal fun providePresenter(view: MainInterface.View): MainInterface.Presenter = MainPresenter(view)
-    }
+    @ActivityScope
+    abstract fun view(mainActivity: MainActivity): BaseActivity
 }

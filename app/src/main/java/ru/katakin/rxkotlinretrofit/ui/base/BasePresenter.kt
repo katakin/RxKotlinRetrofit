@@ -1,8 +1,19 @@
 package ru.katakin.rxkotlinretrofit.ui.base
 
-interface BasePresenter {
+import com.arellomobile.mvp.MvpPresenter
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.disposables.Disposable
 
-    fun subscribe()
+abstract class BasePresenter<V : BaseView> : MvpPresenter<V>() {
 
-    fun unsubscribe()
+    private val compositeDisposable = CompositeDisposable()
+
+    protected fun Disposable.connect() {
+        compositeDisposable.add(this)
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
+    }
 }

@@ -2,19 +2,13 @@ package ru.katakin.rxkotlinretrofit.ui.auth
 
 import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import ru.katakin.rxkotlinretrofit.network.ServiceApi
+import ru.katakin.rxkotlinretrofit.di.ActivityScope
+import ru.katakin.rxkotlinretrofit.ui.base.BaseActivity
 
 @Module
 abstract class AuthActivityModule {
 
     @Binds
-    abstract fun view(authActivity: AuthActivity): AuthInterface.View
-
-    @Module
-    companion object {
-        @JvmStatic
-        @Provides
-        internal fun providePresenter(view: AuthInterface.View, api: ServiceApi): AuthInterface.Presenter = AuthPresenter(view, api)
-    }
+    @ActivityScope
+    abstract fun view(authActivity: AuthActivity): BaseActivity
 }

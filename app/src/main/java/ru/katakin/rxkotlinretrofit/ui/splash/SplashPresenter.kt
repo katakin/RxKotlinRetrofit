@@ -1,48 +1,45 @@
 package ru.katakin.rxkotlinretrofit.ui.splash
 
 import android.content.SharedPreferences
+import com.arellomobile.mvp.InjectViewState
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.functions.BiFunction
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
+import ru.katakin.rxkotlinretrofit.di.ActivityScope
+import ru.katakin.rxkotlinretrofit.ui.base.BasePresenter
 import ru.katakin.rxkotlinretrofit.utils.token
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class SplashPresenter(
-        val view: SplashInterface.View,
-        val sp: SharedPreferences
-) : SplashInterface.Presenter {
+@ActivityScope
+@InjectViewState
+class SplashPresenter @Inject constructor(
+        private val sp: SharedPreferences
+) : BasePresenter<SplashView>() {
 
     companion object {
         val TAG = SplashPresenter::class.java.simpleName
     }
 
-    private val compositeDisposable = CompositeDisposable()
     private val timerSubject = BehaviorSubject.timer(getSplashScreenDuration(), TimeUnit.MILLISECONDS)
     private val start = PublishSubject.create<Unit>()
 
-    override fun subscribe() {
-        compositeDisposable.add(
-                Observable
-                        .combineLatest<Long, Unit, Unit>(timerSubject, start, BiFunction { _, _ -> } )
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe {
-                            when(token) {
-                                null -> view.navigateToAuth()
-                                else -> view.navigateToMain()
-                            }
-                        }
-        )
+    fun onCreate() {
+        Observable
+                .combineLatest<Long, Unit, Unit>(timerSubject, start, BiFunction { _, _ -> })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    when (token) {
+                        null -> viewState.navigateToAuth()
+                        else -> viewState.navigateToMain()
+                    }
+                }.connect()
     }
 
-    override fun onStart() {
+    fun onStart() {
         start.onNext(Unit)
-    }
-
-    override fun unsubscribe() {
-        compositeDisposable.clear()
     }
 
     private fun getSplashScreenDuration(): Long {

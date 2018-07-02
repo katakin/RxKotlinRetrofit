@@ -2,32 +2,29 @@ package ru.katakin.rxkotlinretrofit.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import ru.katakin.rxkotlinretrofit.R
 import ru.katakin.rxkotlinretrofit.ui.auth.AuthActivity
 import ru.katakin.rxkotlinretrofit.ui.base.BaseActivity
 import ru.katakin.rxkotlinretrofit.ui.main.MainActivity
 import javax.inject.Inject
 
-class SplashActivity : BaseActivity(), SplashInterface.View {
+class SplashActivity : BaseActivity(), SplashView {
     override val layoutResourceId: Int
         get() = R.layout.activity_splash
 
-    @Inject
-    lateinit var presenter: SplashInterface.Presenter
+    @Inject @InjectPresenter lateinit var presenter: SplashPresenter
+    @ProvidePresenter fun providePresenter() = presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.subscribe()
+        presenter.onCreate()
     }
 
     override fun onStart() {
         super.onStart()
         presenter.onStart()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.unsubscribe()
     }
 
     override fun navigateToAuth() {
