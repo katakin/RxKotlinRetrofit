@@ -7,14 +7,13 @@ import com.arellomobile.mvp.MvpAppCompatActivity
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasFragmentInjector
 import dagger.android.support.HasSupportFragmentInjector
 import javax.inject.Inject
 
-abstract class BaseActivity : MvpAppCompatActivity(), HasFragmentInjector, HasSupportFragmentInjector {
+
+abstract class BaseActivity : MvpAppCompatActivity(), HasSupportFragmentInjector {
 
     @Inject lateinit var supportFragmentInjector: DispatchingAndroidInjector<Fragment>
-    @Inject lateinit var frameworkFragmentInjector: DispatchingAndroidInjector<android.app.Fragment>
 
     protected abstract val layoutResourceId: Int
 
@@ -29,10 +28,6 @@ abstract class BaseActivity : MvpAppCompatActivity(), HasFragmentInjector, HasSu
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> {
         return supportFragmentInjector
-    }
-
-    override fun fragmentInjector(): AndroidInjector<android.app.Fragment> {
-        return frameworkFragmentInjector
     }
 
     override fun onDestroy() {
