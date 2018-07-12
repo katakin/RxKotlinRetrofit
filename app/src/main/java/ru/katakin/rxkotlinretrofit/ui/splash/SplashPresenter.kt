@@ -19,14 +19,11 @@ class SplashPresenter @Inject constructor(
         private val sp: SharedPreferences
 ) : BasePresenter<SplashView>() {
 
-    companion object {
-        val TAG = SplashPresenter::class.java.simpleName
-    }
-
     private val timerSubject = BehaviorSubject.timer(getSplashScreenDuration(), TimeUnit.MILLISECONDS)
     private val start = PublishSubject.create<Unit>()
 
-    fun onCreate() {
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
         Observable
                 .combineLatest<Long, Unit, Unit>(timerSubject, start, BiFunction { _, _ -> })
                 .observeOn(AndroidSchedulers.mainThread())

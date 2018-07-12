@@ -1,7 +1,6 @@
 package ru.katakin.rxkotlinretrofit.ui.splash
 
 import android.content.Intent
-import android.os.Bundle
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import ru.katakin.rxkotlinretrofit.R
@@ -16,11 +15,6 @@ class SplashActivity : BaseActivity(), SplashView {
 
     @Inject @InjectPresenter lateinit var presenter: SplashPresenter
     @ProvidePresenter fun providePresenter() = presenter
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        presenter.onCreate()
-    }
 
     override fun onStart() {
         super.onStart()

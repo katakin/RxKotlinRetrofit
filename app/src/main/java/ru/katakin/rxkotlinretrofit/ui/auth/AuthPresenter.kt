@@ -18,13 +18,9 @@ class AuthPresenter @Inject constructor(
         private val api: ServiceApi
 ) : BasePresenter<AuthView>() {
 
-    companion object {
-        val TAG = AuthPresenter::class.java.simpleName
-    }
+    private lateinit var watcher: TextWatcher
 
-    private var watcher: TextWatcher? = null
-
-    fun subscribe() {
+    override fun onFirstViewAttach() {
         Observable.create<String> { e ->
             watcher = object : TextWatcher {
                 override fun afterTextChanged(s: Editable?) {
@@ -36,7 +32,7 @@ class AuthPresenter @Inject constructor(
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             }
 
-            viewState.addTokenWatcher(watcher as TextWatcher)
+            viewState.addTokenWatcher(watcher)
 
             //init btn
             e.onNext("")
@@ -52,8 +48,9 @@ class AuthPresenter @Inject constructor(
                 }.connect()
     }
 
-    fun unsubscribe() {
-        watcher?.let {
+    override fun onDestroy() {
+        super.onDestroy()
+        watcher.let {
             viewState.removeTokenWatcher(it)
         }
     }

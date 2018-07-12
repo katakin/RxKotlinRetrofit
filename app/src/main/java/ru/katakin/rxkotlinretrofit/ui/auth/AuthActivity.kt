@@ -24,7 +24,6 @@ class AuthActivity : BaseActivity(), AuthView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        presenter.subscribe()
 
         getTokenBtn.setOnClickListener {
             presenter.getTokenBtnClicked()
@@ -32,11 +31,6 @@ class AuthActivity : BaseActivity(), AuthView {
         closeBtn.setOnClickListener {
             finish()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        presenter.unsubscribe()
     }
 
     override fun showToken(accessToken: String?) {
